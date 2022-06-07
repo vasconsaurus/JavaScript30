@@ -27,6 +27,7 @@
       min-height: 100vh;
       overflow: hidden;
       display: flex;
+      justify-content: space-evenly;
     }
 
     .panel {
@@ -44,11 +45,10 @@
       font-size: 20px;
       background-size: cover;
       background-position: center;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
+      flex-grow: 1;
       display: flex;
-      flex-direction: column;
+      flex-flow: column nowrap;
+      justify-content: space-evenly;
     }
 
     .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
@@ -62,16 +62,7 @@
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
-      flex: 1 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
-
-    .panel > *:first-child { transform: translateY(-100%);}
-    .panel.open-active > *:first-child { transform: translateY(0);}
-    .panel > *:last-child { transform: translateY(100%);}
-    .panel.open-active > *:last-child { transform: translateY(0);}
 
     .panel p {
       text-transform: uppercase;
@@ -85,8 +76,16 @@
     }
 
     .panel.open {
-      flex: 5;
       font-size: 40px;
+      flex: 5;
+    }
+
+    .hidden-top {
+      transform: translateY(-1000px);
+    }
+
+    .hidden-bottom {
+      transform: translateY(1000px);
     }
 
   </style>
@@ -94,47 +93,43 @@
 
   <div class="panels">
     <div class="panel panel1">
-      <p>Hey</p>
+      <p class="hidden-top">Hey</p>
       <p>Let's</p>
-      <p>Dance</p>
+      <p class="hidden-bottom">Dance</p>
     </div>
     <div class="panel panel2">
-      <p>Give</p>
+      <p class="hidden-top">Give</p>
       <p>Take</p>
-      <p>Receive</p>
+      <p class="hidden-bottom">Receive</p>
     </div>
     <div class="panel panel3">
-      <p>Experience</p>
+      <p class="hidden-top">Experience</p>
       <p>It</p>
-      <p>Today</p>
+      <p class="hidden-bottom">Today</p>
     </div>
     <div class="panel panel4">
-      <p>Give</p>
+      <p class="hidden-top">Give</p>
       <p>All</p>
-      <p>You can</p>
+      <p class="hidden-bottom">You can</p>
     </div>
     <div class="panel panel5">
-      <p>Life</p>
+      <p class="hidden-top">Life</p>
       <p>In</p>
-      <p>Motion</p>
+      <p class="hidden-bottom">Motion</p>
     </div>
   </div>
 
   <script>
     const panels = document.querySelectorAll('.panel')
 
-    function toggleOpen() {
-      this.classList.toggle('open')
+    function handleClick(e) {
+      console.log(e.currentTarget)
+      e.currentTarget.classList.toggle('open')
+      e.currentTarget.firstElementChild.classList.toggle('hidden-top')
+      e.currentTarget.lastElementChild.classList.toggle('hidden-bottom')
     }
 
-    function toggleActive(e) {
-      if (e.propertyName.includes('flex')) {
-        this.classList.toggle('open-active');
-      }
-    }
-
-    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
-    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+    panels.forEach(panel => panel.addEventListener('click',handleClick))
 
   </script>
 
