@@ -21,6 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +60,33 @@
   </style>
 
   <script>
+    // how I did it
+    // const optionsInputs = document.querySelectorAll('.controls input')
+    // let root = document.documentElement;
+
+    // function handleOption(e) {
+    //   console.log(e.currentTarget.name)
+    //   if (e.currentTarget.name === "spacing") {
+    //     root.style.setProperty('--spacing', e.currentTarget.value + 'px')
+    //   } else if (e.currentTarget.name === "blur") {
+    //     root.style.setProperty('--blur', e.currentTarget.value + 'px')
+    //   } else if (e.currentTarget.name === "base") {
+    //     root.style.setProperty('--base', e.currentTarget.value)
+    //   }
+    // }
+
+    // optionsInputs.forEach(input => input.addEventListener('input', handleOption))
+
+    // how wes does it
+    const inputs = document.querySelectorAll('.controls input')
+
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
+
+    inputs.forEach(input => input.addEventListener('change',handleUpdate))
+    inputs.forEach(input => input.addEventListener('mousemove',handleUpdate))
   </script>
 
 </body>
