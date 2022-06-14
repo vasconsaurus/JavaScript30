@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+  // select elements on the page
+  const canvas = document.querySelector('canvas')
+  const ctx = canvas.getContext('2d')
+
+  // setup canvas for drawing
+  // make a variable called heigth and width from same properties on our canvas
+  const { width, height } = canvas
+
+  // create x and y on canvas where the pen touches
+  let x = -1000
+  let y = -1000
+
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.lineWidth = 40;
+
+  let hue = 0;
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  ctx.beginPath(); //start drawing
+  ctx.moveTo(x, y);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+
+  // draw function
+  function draw(e) {
+    console.log(e.y, e.x)
+    hue += 1;
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+
+    ctx.beginPath();
+    ctx.moveTo(e.x, e.y);
+    ctx.lineTo(e.x, e.y);
+    ctx.stroke();
+  }
+
+  // listen for mouse drag?
+  window.addEventListener('mousemove', draw)
+
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
