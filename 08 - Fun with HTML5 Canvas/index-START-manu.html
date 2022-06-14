@@ -11,6 +11,8 @@
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d')
 
+  let MOVE_AMOUNT = 40;
+
   // setup canvas for drawing
   // make a variable called heigth and width from same properties on our canvas
   const { width, height } = canvas
@@ -21,7 +23,7 @@
 
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
-  ctx.lineWidth = 40;
+  ctx.lineWidth = MOVE_AMOUNT;
 
   let hue = 0;
   ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
