@@ -18,28 +18,69 @@
     }
 
     // Regular
+    console.log('hello')
 
     // Interpolated
+    // older way to interpolate
+    console.log('Hello I am a %s string',  '🍕')
+    // interpolation with backticks
+    const pizza = '🍕'
+    console.log(`Hello I am a ${pizza} string`)
 
     // Styled
+    console.log('%c I am tiny', 'font-size:8px; background:red')
 
     // warning!
+    console.warn('on noes')
 
     // Error :|
+    console.error('fuen')
 
     // Info
+    console.info('information for your knowledge')
 
     // Testing
+    // it will log when the assertion is wrong
+    console.assert(1 === 1, 'wrong') // does not log 1 === 1 is true
+    console.assert(1 === 2, 'wrong') // logs 1 === 2 is false
 
     // clearing
+    console.clear()
 
     // Viewing DOM Elements
+    const p = document.querySelector('p')
+    console.log(p);
+    console.dir(p);
 
     // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`)
+      console.log(`this is ${dog.name}`)
+      console.log(`age ${dog.age}`)
+      console.groupEnd(`${dog.name}`)
+    })
 
     // counting
+    console.count('wes')
+    console.count('wes')
+    console.count('wes')
+    console.count('ana')
+    console.count('wes')
+    console.count('wes')
+    console.count('ana')
 
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/vasconsaurus')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+    //  table
+    console.table(dogs)
+
 
   </script>
 </body>
