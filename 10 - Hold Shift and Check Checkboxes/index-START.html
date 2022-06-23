@@ -96,6 +96,43 @@
   </div>
 
 <script>
+  // 1. find the checkboxes?
+  const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'))
+
+  let lastChecked;
+
+  function handleClick(event) {
+    let inBetween = false;
+    // check if they had the shift key down
+    // and check if they are checking it
+    if (event.shiftKey && this.checked && lastChecked) {
+      checkboxes.forEach(checkbox => {
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween
+        }
+
+        if(inBetween) {
+          checkbox.checked = true;
+        }
+      });
+    }
+
+    if (event.shiftKey && !this.checked && lastChecked) {
+      checkboxes.forEach(checkbox => {
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween
+        }
+
+        if(inBetween) {
+          checkbox.checked = false;
+        }
+      });
+    }
+
+    lastChecked = this;
+  }
+
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleClick));
 </script>
 </body>
 </html>
