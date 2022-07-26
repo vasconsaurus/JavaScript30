@@ -6,7 +6,22 @@
   <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
+  <h1>Enter your code</h1>
 <script>
+  const pressed = [];
+  const secretCode = 'manu';
+
+  window.addEventListener('keyup', (e) => {
+    pressed.push(e.key);
+    pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+
+    if(pressed.join('').includes(secretCode)) {
+      console.log('ding!');
+      cornify_add();
+    }
+
+    console.log(pressed);
+  })
 </script>
 </body>
 </html>
