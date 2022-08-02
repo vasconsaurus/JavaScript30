@@ -28,11 +28,80 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  let items = [];
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    const itemName = e.currentTarget.item.value;
+
+    // if empty, don't submit
+    if (!itemName) return;
+
+    const item = {
+      itemName,
+      id: Date.now(),
+      complete: false,
+    };
+
+    // push items into our state
+    items.push(item);
+    // clear form
+    e.target.reset();
+
+    // creates a custom event and dispatches it, to let anyone who needs it know
+    itemsList.dispatchEvent(new CustomEvent('itemsUpdated'));
+  }
+
+  function displayItems() {
+    const html = items.map(
+      (item) => `<li class="plates">
+        <input type="checkbox" name="${item.itemName}" value="${item.id}" ${item.complete ? 'checked' : ''}>
+        <label for="${item.itemName}" id="${item.id}" class="platesLabel">${item.itemName}</label>
+        <button aria-label="Remove ${item.itemName}" id="${item.id}">&times;</button>
+        </li>`
+    ).join('');
+    itemsList.innerHTML = html;
+  }
+
+  function mirrorToLocalStorage() {
+    localStorage.setItem('items', JSON.stringify(items));
+  }
+
+  function restoreFromLocalStorage() {
+    const storagedItems = JSON.parse(localStorage.getItem('items'));
+    if (storagedItems.length) {
+      items.push(...storagedItems);
+      itemsList.dispatchEvent(new CustomEvent('itemsUpdated'));
+    }
+  }
+
+  function markAsComplete(id) {
+    const itemRef = items.find((item) => item.id === id);
+    itemRef.complete = !itemRef.complete;
+    itemsList.dispatchEvent(new CustomEvent('itemsUpdated'));
+  }
+
+  function deleteItem(id) {
+    items = items.filter((item) => item.id !== id);
+    itemsList.dispatchEvent(new CustomEvent('itemsUpdated'));
+  }
+
+  addItems.addEventListener('submit', handleSubmit);
+  itemsList.addEventListener('itemsUpdated', displayItems);
+  itemsList.addEventListener('itemsUpdated', mirrorToLocalStorage);
+  itemsList.addEventListener('click', function(e) {
+    const id = parseInt(e.target.id)
+    if(e.target.matches('label')) {
+      markAsComplete(id);
+    }
+    if(e.target.matches('button')){
+      deleteItem(id)
+    }
+  });
+
+  restoreFromLocalStorage();
 </script>
 
 
 </body>
 </html>
-
