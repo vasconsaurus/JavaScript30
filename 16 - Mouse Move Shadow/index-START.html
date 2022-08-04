@@ -38,14 +38,17 @@
   const hero = document.querySelector('.hero');
   const h1 = document.querySelector('h1');
 
+  const height = window.outerHeight
+  const width = window.outerWidth
+
   function moveAround(e) {
     console.log(e)
-    h1.setAttribute('style', `text-shadow: ${e.movementX*5}px ${e.movementY*5}px 0 rgba(0,0,0,0.5)`)
+
+    h1.setAttribute('style', `text-shadow: ${e.movementX*10}px ${e.movementY*10}px 0 ${e.screenY > height/2 ? 'rgba(99,205,210,1)' : 'rgba(233,86,234,1)'}`)
   }
 
   hero.addEventListener('mousemove', moveAround);
 
-  console.log(h1)
 </script>
 </body>
 </html>
