@@ -35,19 +35,55 @@
   </style>
 
 <script>
+  // first try
+  // const hero = document.querySelector('.hero');
+  // const h1 = document.querySelector('h1');
+
+  // const height = window.outerHeight
+  // const width = window.outerWidth
+
+  // function moveAround(e) {
+  //   console.log(e)
+
+  //   h1.setAttribute('style', `text-shadow: ${e.movementX*10}px ${e.movementY*10}px 0 ${e.screenY > height/2 ? 'rgba(99,205,210,1)' : 'rgba(233,86,234,1)'}`)
+  // }
+
+  // hero.addEventListener('mousemove', moveAround);
+
+  // wes
   const hero = document.querySelector('.hero');
-  const h1 = document.querySelector('h1');
+  const text = hero.querySelector('h1');
+  // 4. how far should the shadow go?
+  const walk = 100;
 
-  const height = window.outerHeight
-  const width = window.outerWidth
+  function shadow(e) {
+    // 1. we get the width and the height of the element we will be interacting with
+    // const width = hero.offsetWidth
+    // const height = hero.offsetHeight
+    // same as the above, destructured
+    const { offsetWidth: width, offsetHeight: height } = hero;
+    // 2. we get the mouse position
+    let { offsetX: x, offsetY: y } = e;
 
-  function moveAround(e) {
-    console.log(e)
+    // 3. fix our x and y when listening on the child
+    if (this !== e.target) {
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
 
-    h1.setAttribute('style', `text-shadow: ${e.movementX*10}px ${e.movementY*10}px 0 ${e.screenY > height/2 ? 'rgba(99,205,210,1)' : 'rgba(233,86,234,1)'}`)
+    // 5. we use the walk to scale
+    const xWalk = Math.round((x / width * walk) - (walk / 2));
+    const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+    text.style.textShadow = `
+      ${xWalk}px ${yWalk}px 0 rgba(255,0,255,0.7),
+      ${xWalk * -1}px ${yWalk}px 0 rgba(0,255,255,0.7),
+      ${yWalk}px ${xWalk * -1}px 0 rgba(0,255,0,0.7),
+      ${yWalk * -1}px ${xWalk}px 0 rgba(0,0,255,0.7)
+    `;
   }
 
-  hero.addEventListener('mousemove', moveAround);
+  hero.addEventListener('mousemove', shadow);
 
 </script>
 </body>
