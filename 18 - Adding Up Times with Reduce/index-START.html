@@ -182,22 +182,50 @@
     </li>
   </ul>
 <script>
-  // get all the numbers from the dom
-  const allVideos = document.querySelectorAll('li')
-  const timeArr = []
-  const timeInSecs = []
+  // // manu => my sum is different from wes, it has less seconds
+  // // get all the numbers from the dom
+  // const allVideos = document.querySelectorAll('[data-time]')
 
-  allVideos.forEach( e => timeArr.push(e.attributes[0].value))
+  // const timeArr = []
+  // const timeInSecs = []
 
-  // convert to numbers
-  timeSplit = timeArr.map( e => e.split(':'))
-  timeSplit.map( arr => timeInSecs.push(parseInt(arr[0]) * 60) + parseInt(arr[1]))
+  // allVideos.forEach( e => timeArr.push(e.attributes[0].value))
 
-  // reduce!
-  const sum = timeInSecs.reduce((prev, curr) => prev + curr)
+  // // convert to numbers
+  // timeSplit = timeArr.map( e => e.split(':'))
+  // timeSplit.map( arr => timeInSecs.push(parseInt(arr[0]) * 60) + parseInt(arr[1]))
 
-  console.log(sum)
-  console.log(new Date(sum * 1000).toISOString().substr(11, 8))
+  // // reduce!
+  // const sum = timeInSecs.reduce((prev, curr) => prev + curr)
+
+  // console.log(sum)
+  // console.log(new Date(sum * 1000).toISOString().substr(11, 8))
+
+
+
+
+  // wes
+  // spread our node list into an array so we can use map
+  const timeNodes = [...document.querySelectorAll('[data-time]')]
+
+  // with this we have our array of time in strings
+  const seconds = timeNodes
+    .map(node => node.dataset.time)
+    .map(timeCode => {
+      const [mins, secs] = timeCode.split(':').map(parseFloat); // we destructure and get our mins and secs straight into our variables
+      return (mins * 60) + secs;
+    })
+    .reduce((total, vidSeconds) => total + vidSeconds)
+
+  let secondsLeft = seconds;
+  const hours = Math.floor(secondsLeft / 3600);
+  secondsLeft = secondsLeft % 3600;
+
+  const mins = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
+
+  console.log(`${hours} : ${mins} : ${secondsLeft}`)
+  console.log(seconds)
 
 </script>
 </body>
