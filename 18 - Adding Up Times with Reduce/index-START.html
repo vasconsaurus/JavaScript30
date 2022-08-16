@@ -182,6 +182,23 @@
     </li>
   </ul>
 <script>
+  // get all the numbers from the dom
+  const allVideos = document.querySelectorAll('li')
+  const timeArr = []
+  const timeInSecs = []
+
+  allVideos.forEach( e => timeArr.push(e.attributes[0].value))
+
+  // convert to numbers
+  timeSplit = timeArr.map( e => e.split(':'))
+  timeSplit.map( arr => timeInSecs.push(parseInt(arr[0]) * 60) + parseInt(arr[1]))
+
+  // reduce!
+  const sum = timeInSecs.reduce((prev, curr) => prev + curr)
+
+  console.log(sum)
+  console.log(new Date(sum * 1000).toISOString().substr(11, 8))
+
 </script>
 </body>
 </html>
