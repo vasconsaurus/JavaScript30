@@ -1,14 +1,21 @@
 {
-  "name": "gum",
+  "name": "20---speech-detection",
   "version": "1.0.0",
   "description": "",
   "main": "scripts.js",
   "scripts": {
-    "start": "browser-sync start --directory --server --files \"*.css, *.html, *.js\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index-START.html"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.12.5 <2.23.2"
-  }
+    "parcel": "^2.7.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "browserslist": [
+    "last 1 chrome versions"
+  ]
 }
