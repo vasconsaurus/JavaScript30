@@ -9,11 +9,6 @@ let p = document.createElement('p');
 const words = document.querySelector('.words');
 words.appendChild(p);
 
-function gettingTheTime() {
-  timeNow = new Date();
-  p.innerHTML = `<p style="color:#FF0000"> >> ${timeNow}</p>`
-}
-
 recognition.addEventListener('result', e => {
   const transcript = Array.from(e.results)
     .map(result => result[0])
@@ -27,7 +22,18 @@ recognition.addEventListener('result', e => {
   }
 
   if(transcript.includes('horas')) {
-    debounce(gettingTheTime, 0);
+    const gettingTheTime = () => {
+      timeNow = new Date();
+      p.innerHTML = `<p style="color:#FF0000"> >> ${timeNow}</p>`
+      if(e.results[0].isFinal) {
+        p = document.createElement('p');
+        words.appendChild(p);
+      }
+    }
+
+    const debouncedTime = debounce(gettingTheTime, 2000);
+
+    debouncedTime()
   }
 });
 
