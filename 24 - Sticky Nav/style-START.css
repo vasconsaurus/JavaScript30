@@ -25,6 +25,11 @@ body {
   transition: transform 0.5s;
 }
 
+/* just to give it a nice effect */
+.fixed-nav .site-wrap {
+  transform: scale(1);
+}
+
 header {
   text-align: center;
   height: 50vh;
@@ -50,6 +55,17 @@ nav {
   z-index: 1;
 }
 
+/* when usind on the body */
+.fixed-nav nav {
+  position: fixed;
+  box-shadow: 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* when usind directly on the nav */
+/* nav.fixed {
+  position: fixed;
+} */
+
 nav ul {
   margin: 0;
   padding:0;
@@ -72,6 +88,10 @@ li.logo {
   transition: all .5s;
   font-weight: 600;
   font-size: 30px;
+}
+
+.fixed-nav li.logo {
+  max-width: 500px;
 }
 
 li.logo a {
